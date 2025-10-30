@@ -1,0 +1,20 @@
+{
+  "name": "proyexion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YefersonL/ProyeXion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YefersonL/ProyeXion/issues"
+  },
+  "homepage": "https://github.com/YefersonL/ProyeXion#readme"
+}

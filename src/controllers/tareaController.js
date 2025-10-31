@@ -1,66 +1,48 @@
-import Tarea from "../models/Tarea.js";
+const Tarea = require('../models/Tarea');
 
-// Crear una nueva tarea
-export const crearTarea = async (req, res) => {
+// Obtener todas las tareas
+exports.obtenerTareas = async (req, res) => {
   try {
-    const tarea = new Tarea(req.body);
-    await tarea.save();
-    res.status(201).json(tarea);
-  } catch (error) {
-    res.status(500).json({ message: "Error al crear tarea", error });
-  }
-};
-
-// Obtener todas las tareas (o por proyecto)
-export const obtenerTareas = async (req, res) => {
-  try {
-    const { proyectoId } = req.query;
-    const query = proyectoId ? { proyecto: proyectoId } : {};
-    const tareas = await Tarea.find(query).populate("responsable", "nombre email");
+    const tareas = await Tarea.find();
     res.json(tareas);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener tareas", error });
+    res.status(500).json({ mensaje: 'Error al obtener las tareas', error });
   }
 };
 
-// Asignar responsable
-export const asignarResponsable = async (req, res) => {
+// Crear una nueva tarea
+exports.crearTarea = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { responsable } = req.body;
+    const nuevaTarea = new Tarea(req.body);
+    await nuevaTarea.save();
+    res.status(201).json(nuevaTarea);
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al crear la tarea', error });
+  }
+};
 
-    const tarea = await Tarea.findByIdAndUpdate(
-      id,
-      { responsable },
-      { new: true }
-    ).populate("responsable", "nombre email");
-
+// Actualizar una tarea por ID
+exports.actualizarTarea = async (req, res) => {
+  try {
+    const tarea = await Tarea.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!tarea) {
+      return res.status(404).json({ mensaje: 'Tarea no encontrada' });
+    }
     res.json(tarea);
   } catch (error) {
-    res.status(500).json({ message: "Error al asignar responsable", error });
+    res.status(500).json({ mensaje: 'Error al actualizar la tarea', error });
   }
 };
 
-// Cambiar estado
-export const cambiarEstado = async (req, res) => {
+// Eliminar una tarea por ID
+exports.eliminarTarea = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { estado } = req.body;
-
-    const tarea = await Tarea.findByIdAndUpdate(id, { estado }, { new: true });
-    res.json(tarea);
+    const tarea = await Tarea.findByIdAndDelete(req.params.id);
+    if (!tarea) {
+      return res.status(404).json({ mensaje: 'Tarea no encontrada' });
+    }
+    res.json({ mensaje: 'Tarea eliminada correctamente' });
   } catch (error) {
-    res.status(500).json({ message: "Error al cambiar estado", error });
-  }
-};
-
-// Eliminar tarea
-export const eliminarTarea = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await Tarea.findByIdAndDelete(id);
-    res.json({ message: "Tarea eliminada correctamente" });
-  } catch (error) {
-    res.status(500).json({ message: "Error al eliminar tarea", error });
+    res.status(500).json({ mensaje: 'Error al eliminar la tarea', error });
   }
 };

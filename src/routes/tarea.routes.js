@@ -1,21 +1,11 @@
-import express from "express";
-import {
-  crearTarea,
-  obtenerTareas,
-  asignarResponsable,
-  cambiarEstado,
-  eliminarTarea,
-} from "../controllers/tareaController.js";
-
-import { authMiddleware } from "../utils/authMiddleware.js";
-
+const express = require('express');
 const router = express.Router();
+const tareaController = require('../controllers/tareaController');
 
-// CRUD básico de tareas
-router.post("/", authMiddleware, crearTarea);
-router.get("/", authMiddleware, obtenerTareas);
-router.put("/:id/responsable", authMiddleware, asignarResponsable);
-router.put("/:id/estado", authMiddleware, cambiarEstado);
-router.delete("/:id", authMiddleware, eliminarTarea);
+// CRUD
+router.get('/', tareaController.obtenerTareas);
+router.post('/', tareaController.crearTarea);
+router.put('/:id', tareaController.actualizarTarea);
+router.delete('/:id', tareaController.eliminarTarea);
 
-export default router;
+module.exports = router;

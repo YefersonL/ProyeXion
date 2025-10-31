@@ -1,29 +1,17 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const tareaSchema = new mongoose.Schema({
-  nombre: {
+  titulo: {
     type: String,
-    required: true,
-    trim: true,
+    required: [true, 'El título es obligatorio'],
   },
   descripcion: {
     type: String,
-    trim: true,
+    default: '',
   },
-  estado: {
-    type: String,
-    enum: ["pendiente", "en progreso", "completada"],
-    default: "pendiente",
-  },
-  responsable: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: false,
-  },
-  proyecto: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Proyecto",
-    required: true,
+  completada: {
+    type: Boolean,
+    default: false,
   },
   fechaCreacion: {
     type: Date,
@@ -31,4 +19,6 @@ const tareaSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Tarea", tareaSchema);
+const Tarea = mongoose.model('Tarea', tareaSchema);
+
+module.exports = Tarea;

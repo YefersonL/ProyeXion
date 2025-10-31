@@ -26,3 +26,16 @@ router.get('/:id', async (req, res) => {
 });
 
 
+// Editar
+router.put('/:id', async (req, res) => {
+  const proyecto = await Proyecto.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(proyecto);
+});
+
+// Eliminar
+router.delete('/:id', async (req, res) => {
+  await Proyecto.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Proyecto eliminado' });
+});
+
+module.exports = router;

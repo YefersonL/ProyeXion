@@ -34,6 +34,6 @@ app.use('/api/auth', authRoutes);
 // 8. INICIAR EL SERVIDOR
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor ProyeXión corriendo en modo ${process.env.NODE_ENV || 'desarrollo'} en el puerto ${PORT}`);
-    console.log(`🔗 Accede a la API en: http://localhost:${PORT}`);
+    console.log(` Servidor ProyeXión corriendo en modo ${process.env.NODE_ENV || 'desarrollo'} en el puerto ${PORT}`);
+    console.log(` Accede a la API en: http://localhost:${PORT}`);
 });

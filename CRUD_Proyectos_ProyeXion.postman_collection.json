@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "163f0d26-82c0-4520-9483-51dd39ccb14b",
+		"name": "CRUD Proyectos - ProyeXión",
+		"description": "Colección para probar el módulo CRUD de proyectos.  \nIncluye endpoints de creación, lectura, actualización y eliminación.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23229544"
+	},
+	"item": [
+		{
+			"name": "CREAR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Proyecto QA ProyeXión\",\r\n  \"descripcion\": \"CRUD de proyectos en Node.js\",\r\n  \"fechaInicio\": \"2025-10-30\",\r\n  \"fechaFin\": \"2025-12-31\",\r\n  \"estado\": \"En progreso\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/api/proyectos"
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/proyectos"
+			},
+			"response": []
+		},
+		{
+			"name": "BUSCAR",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Proyecto QA ProyeXión\",\r\n  \"descripcion\": \"CRUD de proyectos en Node.js\",\r\n  \"fechaInicio\": \"2025-10-30\",\r\n  \"fechaFin\": \"2025-12-31\",\r\n  \"estado\": \"En progreso\"\r\n}\r\n"
+				},
+				"url": "http://localhost:5000/api/proyectos/69043f0ff5516923dd7d5f4e"
+			},
+			"response": []
+		}
+	]
+}

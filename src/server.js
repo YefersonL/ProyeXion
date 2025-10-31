@@ -7,6 +7,7 @@ const connectDB = require('./config/db.connection'); // Necesitarás crear este 
 const authRoutes = require('./routes/auth.routes'); 
 const proyectosRoutes = require('./routes/proyectos');
 
+
 // 2. CARGAR VARIABLES DE ENTORNO
 // Esto permite acceder a MONGODB_URI y PORT desde process.env
 dotenv.config();
@@ -31,6 +32,8 @@ app.get('/', (req, res) => {
 // 7. MONTAR RUTAS DE AUTENTICACIÓN
 app.use('/api/auth', authRoutes);
 app.use('/api/proyectos', proyectosRoutes);
+
+
 
 
 

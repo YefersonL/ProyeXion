@@ -13,3 +13,16 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Listar
+router.get('/', async (req, res) => {
+  const proyectos = await Proyecto.find();
+  res.json(proyectos);
+});
+
+// Obtener por ID
+router.get('/:id', async (req, res) => {
+  const proyecto = await Proyecto.findById(req.params.id);
+  res.json(proyecto);
+});
+
+

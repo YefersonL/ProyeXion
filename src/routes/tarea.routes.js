@@ -1,11 +1,13 @@
+// src/routes/tarea.routes.js
 const express = require('express');
 const router = express.Router();
 const tareaController = require('../controllers/tareaController');
+const { protect } = require('../utils/authMiddleware'); // 🧩 Usa tu middleware existente
 
-// CRUD
-router.get('/', tareaController.obtenerTareas);
-router.post('/', tareaController.crearTarea);
-router.put('/:id', tareaController.actualizarTarea);
-router.delete('/:id', tareaController.eliminarTarea);
+// Rutas protegidas por token
+router.get('/', protect, tareaController.obtenerTareas);
+router.post('/', protect, tareaController.crearTarea);
+router.put('/:id', protect, tareaController.actualizarTarea);
+router.delete('/:id', protect, tareaController.eliminarTarea);
 
 module.exports = router;

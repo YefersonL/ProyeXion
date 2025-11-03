@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// src/models/Tarea.js
+const mongoose = require('mongoose'); 
 
 const tareaSchema = new mongoose.Schema({
   titulo: {
@@ -17,6 +18,11 @@ const tareaSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  usuario: { // 🔐 Relación con el usuario autenticado
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 });
 
 const Tarea = mongoose.model('Tarea', tareaSchema);

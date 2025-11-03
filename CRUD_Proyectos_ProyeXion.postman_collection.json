@@ -26,15 +26,6 @@
 			"response": []
 		},
 		{
-			"name": "LISTAR",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:5000/api/proyectos"
-			},
-			"response": []
-		},
-		{
 			"name": "BUSCAR",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -47,6 +38,15 @@
 					"raw": "{\r\n  \"nombre\": \"Proyecto QA ProyeXión\",\r\n  \"descripcion\": \"CRUD de proyectos en Node.js\",\r\n  \"fechaInicio\": \"2025-10-30\",\r\n  \"fechaFin\": \"2025-12-31\",\r\n  \"estado\": \"En progreso\"\r\n}\r\n"
 				},
 				"url": "http://localhost:5000/api/proyectos/69043f0ff5516923dd7d5f4e"
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/proyectos"
 			},
 			"response": []
 		}

@@ -16,4 +16,7 @@ router.get('/logout', authController.logout);
 // PUT /api/auth/profile - 3. EDITAR PERFIL (Requiere token JWT para acceder)
 router.put('/profile', protect, authController.editProfile);
 
+//Elimar usuario
+router.delete('/:id', protect, authController.deleteUser);
+
 module.exports = router;

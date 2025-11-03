@@ -57,6 +57,39 @@ exports.logout = (req, res) => {
     res.status(200).json({ message: 'Sesión finalizada correctamente. El token debe ser eliminado por el cliente.' });
 };
 
+//Elimiar Usuario
+exports.deleteUser = async (req, res) => {
+    // ⚠️ La eliminación de usuarios generalmente DEBE ser exclusiva del Administrador.
+    // Asumimos que el middleware 'protect' ha inyectado el usuario logueado en req.user
+    
+    // Opcional: Chequeo de rol (solo si quieres que solo el Admin pueda eliminar)
+    // if (req.user.role !== 'Administrador') {
+    //     return res.status(403).json({ message: 'Prohibido. Solo los administradores pueden eliminar usuarios.' });
+    // }
+
+    const { id } = req.params; 
+    
+    // 1. Validar el formato del ID
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'ID de usuario no válido.' });
+    }
+
+    try {
+        // 2. Buscar y eliminar por ID
+        const user = await User.findByIdAndDelete(id);
+        
+        if (!user) {
+            // 3. Manejar caso de usuario no encontrado
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+        
+        // 4. Respuesta de éxito
+        res.status(200).json({ message: `Usuario ${user.name} eliminado exitosamente.` });
+    } catch (error) {
+        res.status(500).json({ message: 'Error interno al eliminar el usuario.', error: error.message });
+    }
+};
+
 // 3. EDITAR PERFIL (editProfile)
 exports.editProfile = async (req, res) => {
     // req.user.id es proporcionado por el middleware de autenticación (authMiddleware)

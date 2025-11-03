@@ -1,0 +1,15 @@
+npm install express mongoose dotenv bcrypt jsonwebtoken
+
+
+# Variables de Entorno para ProyeXión API
+
+# 1. URL de Conexión a MongoDB (Cluster Atlas o Local)
+# Asegúrate de reemplazar <user>, <password>, y <dbname> si usas Atlas
+MONGODB_URI = mongodb+srv://linares_db_user:QxxmuGE5T3McC34d@cluster0.ao4bqkn.mongodb.net/?appName=Cluster0
+
+# 2. Puerto en el que se ejecutará el servidor Node.js
+PORT = 5000
+
+# 3. Clave Secreta para firmar los JSON Web Tokens (JWT)
+# Esta debe ser una cadena larga y aleatoria.
+JWT_SECRET = TuClaveSecretaUltraSeguraParaFirmarTokens

@@ -5,10 +5,17 @@ const connectDB = require("./config/db.connection");
 const tareaRoutes = require("./routes/tarea.routes");
 const proyectoRoutes = require("./routes/proyectos");
 const authRoutes = require("./routes/auth.routes");
+const cors = require('cors'); // <-- IMPORTANTE
 
-dotenv.config(); // Carga las variables del .env
+dotenv.config();
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET','POST','PUT','DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Middleware para interpretar JSON
 app.use(express.json());

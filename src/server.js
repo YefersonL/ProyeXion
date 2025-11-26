@@ -1,36 +1,45 @@
-// server.js (Extracto)
-const express = require('express');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db.connection');
+// src/server.js
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const connectDB = require("./config/db.connection");
 
-const authRoutes = require('./routes/auth.routes'); 
-const proyectosRoutes = require('./routes/proyectos');
-const tareasRoutes = require('./routes/tarea.routes'); // 👈 agregado
+const tareaRoutes = require("./routes/tarea.routes");
+const proyectoRoutes = require("./routes/proyectos");
+const authRoutes = require("./routes/auth.routes");
 
-// 2. CARGAR VARIABLES DE ENTORNO
 dotenv.config();
-
-// 3. CONEXIÓN A LA BASE DE DATOS
 connectDB();
 
 const app = express();
 
-// 5. MIDDLEWARES BÁSICOS
+app.use(cors({
+  origin: "http://localhost:4200",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
-// 6. RUTA DE PRUEBA (HEALTH CHECK)
-app.get('/', (req, res) => {
-    res.send('Servidor ProyeXión API corriendo exitosamente. Visita /api/auth para las rutas de autenticación.');
+// Rutas públicas
+app.use("/api/auth", authRoutes); // login SIN TOKEN
+
+// Rutas protegidas
+app.use("/api/tareas", tareaRoutes);
+app.use("/api/proyectos", proyectoRoutes);
+
+// Health check
+app.get("/", (req, res) => {
+  res.send("Servidor OK");
 });
 
-// 7. MONTAR RUTAS
-app.use('/api/auth', authRoutes);
-app.use('/api/proyectos', proyectosRoutes);
-app.use('/api/tareas', tareasRoutes); // 👈 nuevo módulo
+// ❗ Ruta 404 para evitar usar "*"
+app.use((req, res) => {
+  res.status(404).json({ error: "Ruta no encontrada" });
+});
 
-// 8. INICIAR EL SERVIDOR
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-    console.log(`✅ Servidor ProyeXión corriendo en modo ${process.env.NODE_ENV || 'desarrollo'} en el puerto ${PORT}`);
-    console.log(`🌐 Accede a la API en: http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
 });

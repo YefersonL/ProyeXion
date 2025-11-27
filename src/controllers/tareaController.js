@@ -4,8 +4,8 @@ const Tarea = require('../models/Tarea');
 // 📘 Obtener todas las tareas del usuario autenticado
 exports.obtenerTareas = async (req, res) => {
   try {
-    // Solo devuelve tareas creadas por el usuario logueado
-    const tareas = await Tarea.find({ usuario: req.user.id });
+    // Solo devuelve tareas creadas por el usuario logueado, incluyendo datos del proyecto
+    const tareas = await Tarea.find({ usuario: req.user.id }).populate('proyecto', 'nombre estado');
     res.json(tareas);
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al obtener las tareas', error });
@@ -18,6 +18,7 @@ exports.crearTarea = async (req, res) => {
     const nuevaTarea = new Tarea({
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
+      proyecto: req.body.proyecto || null, // opcional
       usuario: req.user.id // se toma del token validado
     });
 
